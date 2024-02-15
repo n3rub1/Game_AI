@@ -7,10 +7,12 @@ public class PlayerController : MonoBehaviour
 {
 
     private NavMeshAgent navMeshAgent;
+    private Animator animator;
 
     void Start()
     {
         navMeshAgent = GetComponent<NavMeshAgent>();
+        animator = GetComponent<Animator>();
     }
 
     void Update()
@@ -19,6 +21,7 @@ public class PlayerController : MonoBehaviour
 
         if(Mathf.Abs(input.y) > 0.01f)
         {
+            animator.Play("infantry_03_run");
             Vector3 destination = transform.position + transform.right * input.x + transform.forward * input.y;
             navMeshAgent.destination = destination;
         }

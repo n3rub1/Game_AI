@@ -6,12 +6,17 @@ public class EnemyHealth : MonoBehaviour
 {
     public int health = 10;
 
-    public void reduceHealth()
+    public void ReduceHealth()
     {
         health--;
     }
 
-    public void increaseHealth()
+    public void IncreaseHealth()
+    {
+        health++;
+    }
+
+    public void MaxHealth()
     {
         health = 10;
     }
