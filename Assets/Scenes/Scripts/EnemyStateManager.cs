@@ -9,6 +9,7 @@ public class EnemyStateManager : MonoBehaviour
     EnemyBaseState currentState;
     NavMeshAgent navMeshAgent;
     EnemyHealth enemyHealth;
+    Animator animator;
     public GameObject player;
     public EnemyAttackState enemyAttackState = new EnemyAttackState();
     public EnemyRunAwayState enemyRunAwayState = new EnemyRunAwayState();
@@ -20,6 +21,7 @@ public class EnemyStateManager : MonoBehaviour
     {
         navMeshAgent = GetComponent<NavMeshAgent>();
         enemyHealth = GetComponent<EnemyHealth>();
+        animator = GetComponent<Animator>();
         currentState = enemyIdleState;
         currentState.EnterState(this, navMeshAgent);
     }
@@ -27,12 +29,7 @@ public class EnemyStateManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        currentState.UpdateState(this, navMeshAgent, enemyHealth, player);
-    }
-
-    private void OnCollisionEnter(Collision collision)
-    {
-        currentState.OnCollisionEnter(this, collision);
+        currentState.UpdateState(this, navMeshAgent, enemyHealth, player, animator);
     }
 
     public void SwitchState(EnemyBaseState state)
@@ -41,14 +38,5 @@ public class EnemyStateManager : MonoBehaviour
         state.EnterState(this, navMeshAgent);
     }
 
-    public void OnTriggerEnter(Collider collider)
-    {
-        currentState.OnTriggerEnter(this, collider);
-    }
-
-    private void OnTriggerExit(Collider collider)
-    {
-        currentState.onTriggerExit(this, collider);
-    }
 
 }

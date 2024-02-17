@@ -5,6 +5,7 @@ using UnityEngine;
 public class EnemyHealth : MonoBehaviour
 {
     public int health = 10;
+    public GameObject healingPrefab;
 
     public void ReduceHealth()
     {
@@ -13,6 +14,7 @@ public class EnemyHealth : MonoBehaviour
 
     public void IncreaseHealth()
     {
+        Instantiate(healingPrefab, transform.position, transform.rotation);
         health++;
     }
 

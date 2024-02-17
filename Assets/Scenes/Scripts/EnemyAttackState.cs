@@ -3,34 +3,17 @@ using UnityEngine.AI;
 
 public class EnemyAttackState : EnemyBaseState
 {
-    private float attackRange = 1.0f;
+    private float attackRange = 5.0f;
     public override void EnterState(EnemyStateManager enemy, NavMeshAgent navMeshAgent)
     {
 
         Debug.Log("ATTACK!");
     }
 
-    public override void OnCollisionEnter(EnemyStateManager enemy, Collision collision)
+    public override void UpdateState(EnemyStateManager enemy, NavMeshAgent navMeshAgent, EnemyHealth enemyHealth, GameObject player, Animator animator)
     {
 
-    }
-
-    public override void OnTriggerEnter(EnemyStateManager enemy, Collider collider)
-    {
-        
-    }
-    public override void onTriggerExit(EnemyStateManager enemy, Collider collider)
-    {
-        GameObject other = collider.gameObject;
-        if (other.CompareTag("Player"))
-        {
-            enemy.SwitchState(enemy.enemyPatrolState);
-        }
-    }
-
-    public override void UpdateState(EnemyStateManager enemy, NavMeshAgent navMeshAgent, EnemyHealth enemyHealth, GameObject player)
-    {
-
+        animator.SetBool("Run", true);
 
         if (enemyHealth.health >= 5)
         {
@@ -38,13 +21,21 @@ public class EnemyAttackState : EnemyBaseState
             enemy.transform.position += directionToPlayer * navMeshAgent.speed * Time.deltaTime;
             enemy.transform.LookAt(player.transform.position);
 
+
             if(Vector3.Distance(enemy.transform.position, player.transform.position) <= attackRange)
             {
+                animator.SetBool("Attack", true);
                 AttackPlayer();
+            }
+            else
+            {
+                animator.SetBool("Attack", false);
+                enemy.SwitchState(enemy.enemyPatrolState);
             }
         }
         else
         {
+            animator.SetBool("Attack", false);
             enemy.SwitchState(enemy.enemyRunAwayState);
         }
 

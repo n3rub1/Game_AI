@@ -16,43 +16,26 @@ public class EnemyPatrolState : EnemyBaseState
 
     public override void EnterState(EnemyStateManager enemy, NavMeshAgent navMeshAgent)
     {
-        Debug.Log("Patrolling...");
         int randomNumber = Random.Range(0, 5);
         destination = destinationPoints[randomNumber];
         navMeshAgent.speed = 10.0f;
     }
 
-    public override void OnCollisionEnter(EnemyStateManager enemy, Collision collision)
+    public override void UpdateState(EnemyStateManager enemy, NavMeshAgent navMeshAgent, EnemyHealth enemyHealth, GameObject player, Animator animator)
     {
-/*        GameObject other = collision.gameObject;
-        if (other.CompareTag("Player"))
-        {
-            Debug.Log("collision from patrol");
-            enemy.SwitchState(enemy.enemyAttackState);
-        }*/
+        animator.SetBool("Run", true);
+        animator.SetBool("Attack", false);
 
-    }
-
-    public override void OnTriggerEnter(EnemyStateManager enemy, Collider collider)
-    {
-        GameObject other = collider.gameObject;
-        if (other.CompareTag("Player"))
-        {
-            enemy.SwitchState(enemy.enemyAttackState);
-        }
-    }
-
-    public override void onTriggerExit(EnemyStateManager enemy, Collider collider)
-    {
-    }
-
-    public override void UpdateState(EnemyStateManager enemy, NavMeshAgent navMeshAgent, EnemyHealth enemyHealth, GameObject player)
-    {
         navMeshAgent.destination = destination; 
 
         if(enemy.transform.position.x == destination.x)
         {
             enemy.SwitchState(enemy.enemyIdleState);
+        }
+
+        if(Vector3.Distance(player.transform.position, enemy.transform.position) < 5)
+        {
+            enemy.SwitchState(enemy.enemyAttackState);
         }
     }
 }

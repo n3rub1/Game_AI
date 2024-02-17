@@ -14,34 +14,22 @@ public class EnemyRunAwayState : EnemyBaseState
 
     public override void EnterState(EnemyStateManager enemy, NavMeshAgent navMeshAgent)
     {
-        Debug.Log("Run away!");
         navMeshAgent.speed = 15.0f;
         healTime = 1.0f;
     }
 
-    public override void OnCollisionEnter(EnemyStateManager enemy, Collision collision)
+    public override void UpdateState(EnemyStateManager enemy, NavMeshAgent navMeshAgent, EnemyHealth enemyHealth, GameObject player, Animator animator)
     {
-    }
-
-    public override void OnTriggerEnter(EnemyStateManager enemy, Collider collider)
-    {
-
-    }
-    public override void onTriggerExit(EnemyStateManager enemy, Collider collider)
-    {
-    }
-
-    public override void UpdateState(EnemyStateManager enemy, NavMeshAgent navMeshAgent, EnemyHealth enemyHealth, GameObject player)
-    {
-
-        if(enemyHealth.health == 10)
+        animator.SetBool("Run", true);
+        animator.SetBool("Attack", false);
+        if (enemyHealth.health == 10)
         {
             enemy.SwitchState(enemy.enemyPatrolState);
         }
         else
         {
             healTime -= Time.deltaTime;
-            Vector3 vector3 = destinationPoints[4];
+            Vector3 vector3 = destinationPoints[Random.Range(0,3)];
             navMeshAgent.destination = vector3;
 
             if(healTime <= 0)

@@ -13,10 +13,10 @@ GameObject:
   - component: {fileID: 4953225455549845886}
   - component: {fileID: 4405548710749953919}
   - component: {fileID: 8007108908651024463}
-  - component: {fileID: 8154097521551279738}
+  - component: {fileID: 1279943917541532841}
   m_Layer: 0
   m_Name: Stone
-  m_TagString: Untagged
+  m_TagString: Projectile
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -134,7 +134,7 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
---- !u!114 &8154097521551279738
+--- !u!114 &1279943917541532841
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -143,7 +143,6 @@ MonoBehaviour:
   m_GameObject: {fileID: 2874106218606133478}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ef018eae53ab26f40955fac65c245d86, type: 3}
+  m_Script: {fileID: 11500000, guid: 4a6319b25a189c347bb3b047bca0cd50, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  stoneSpeed: 10
