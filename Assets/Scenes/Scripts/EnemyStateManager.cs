@@ -1,7 +1,9 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
+
+/*
+    This class is used to control the finite state machine, by updating and switching states
+ */
 
 public class EnemyStateManager : MonoBehaviour
 {
@@ -10,6 +12,8 @@ public class EnemyStateManager : MonoBehaviour
     NavMeshAgent navMeshAgent;
     EnemyHealth enemyHealth;
     Animator animator;
+    public PlayerHealth playerHealth;
+    public AudioClip[] audioClips;
     public GameObject player;
     public EnemyAttackState enemyAttackState = new EnemyAttackState();
     public EnemyRunAwayState enemyRunAwayState = new EnemyRunAwayState();
@@ -29,7 +33,7 @@ public class EnemyStateManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        currentState.UpdateState(this, navMeshAgent, enemyHealth, player, animator);
+        currentState.UpdateState(this, navMeshAgent, enemyHealth, player, animator, audioClips, playerHealth);
     }
 
     public void SwitchState(EnemyBaseState state)
@@ -37,6 +41,5 @@ public class EnemyStateManager : MonoBehaviour
         currentState = state;
         state.EnterState(this, navMeshAgent);
     }
-
 
 }

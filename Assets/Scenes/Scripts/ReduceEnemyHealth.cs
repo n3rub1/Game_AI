@@ -1,10 +1,13 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
+/*
+    This class is used to detect triggers within the enemy's object and deduct health.
+ */
 public class ReduceEnemyHealth : MonoBehaviour
 {
     EnemyHealth enemyHealth;
+    int minEffectScale = 2;
+    int maxEffectScale = 4;
     public AudioClip[] soundClips;
     public GameObject effectHitPrefab;
     public bool goHealing = false;
@@ -19,12 +22,12 @@ public class ReduceEnemyHealth : MonoBehaviour
     {
         if (other.CompareTag("Projectile"))
         {
-            int randomAttackSound = Random.Range(0, 2);
+            int randomAttackSound = Random.Range(0, soundClips.Length);
             AudioSource.PlayClipAtPoint(soundClips[randomAttackSound], transform.position);
 
             GameObject effect = Instantiate(effectHitPrefab, transform.position + additionalPosition, transform.rotation);
 
-            Vector3 scaleFactor = new Vector3(Random.Range(2, 4), Random.Range(2, 4), Random.Range(2, 4));
+            Vector3 scaleFactor = new Vector3(Random.Range(minEffectScale, maxEffectScale), Random.Range(minEffectScale, maxEffectScale), Random.Range(minEffectScale, maxEffectScale));
             effect.transform.localScale = scaleFactor;
 
             MeshRenderer meshRenderer = other.GetComponent<MeshRenderer>();
@@ -35,7 +38,6 @@ public class ReduceEnemyHealth : MonoBehaviour
 
             enemyHealth.ReduceHealth();
         }
-
 
     }
 }
