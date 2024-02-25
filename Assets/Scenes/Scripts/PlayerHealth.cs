@@ -10,7 +10,8 @@ public class PlayerHealth : MonoBehaviour
     int minEffectScale = 2;
     int maxEffectScale = 4;
     public GameObject effectHitPrefab;
-    public Vector3 additionalPosition = new Vector3(0f, 1f, 0f);
+    public GameObject lifeRegenPrefab;
+    public Vector3 additionalPosition = new Vector3(0f, 2f, 0f);
 
     void Start()
     {
@@ -47,6 +48,7 @@ public class PlayerHealth : MonoBehaviour
 
     void IncreaseHealth()
     {
+        Instantiate(lifeRegenPrefab, transform.position + additionalPosition, transform.rotation);
         health++;
     }
 }
